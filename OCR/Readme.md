@@ -9,4 +9,4 @@
 
 <h2>前期准备</h2>
 
-由于GitHub不支持查看数学公式，查看本项目前请安装[MathJax 3 Plugin for Github](https://www.crx4chrome.com/crx/223013/)插件来显示数学公式。
+由于GitHub不支持查看数学公式，查看本项目前请安装[MathJax 3 Plugin for Github](https://www.crx4chrome.com/crx/223013/)插件来显示数学公式，使用插件时，需要刷新两次后公式才会出现。若仍然出现问题，可以安装VScode来进行本地查看
