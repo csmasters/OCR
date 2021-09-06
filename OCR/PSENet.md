@@ -70,10 +70,13 @@ PESENet的损失函数可以表示为：
 $$L={\lambda}L_c+(1-{\lambda})L_s$$
 其中，$L_c$和$L_s$分别表示完整文本实例和收缩实例的损失，而$\lambda$平衡了$L_c$和$L_s$之间的重要性。
 当使用二进制交叉熵时，由于在自然图像中，文本实例通常只占据一个非常小的区域，所以使用网络与测试可能会出现预测非文本区域的偏差。受到[V-Net: Fully Convolutional Neural Networks for Volumetric Medical Image Segmentation](https://arxiv.org/pdf/1606.04797.pdf)启发，采取骰子系数(dice coefficient)的方法。该方法$D(S_i,G_i)$可以表示为:
+
 $$D(S_i,G_i)={{2\sum}_{x,y}(S_{i,x,y}\times G_{i,x,y})\over{\sum}_{x,y}S^2_{i,x,y}+{\sum}_{x,y}G^2_{i,x,y}}$$
 
 其中，$S_{i,x,y}$和$G_{i,x,y}$分别表示分割结果$S_i$和标准值$G_i$中的像素$(x、y)$的值。此外，还有许多类似于文本笔画的模式，如fences, lattices等。因此，我们在训练过程中采用在线硬例挖掘([Online Hard Example Mining，OHEM](http://proceedings.mlr.press/v28/sutskever13.html))的到$L_c$，以更好地区分这些模式。$L_c$专注于分割文本和非文本区域。让我们将OHEM给出的训练掩模考虑为$M$，从而可以表示$L_c$为：
+
 $$L_c=1-D(S_n\cdot M, G_n\cdot M)$$
+
 $L_s$是指已缩小的文本实例的损失。由于它们被完整文本实例的原始区域所包围，我们忽略了分割结果$S_n$中非文本区域的像素，以避免一定的冗余。因此，可以表述如下：
 
 $$L_s=1-{{\sum}_{i=1}^{n-1}D(S_i\cdot W, G_i\cdot W)\over n-1}$$
